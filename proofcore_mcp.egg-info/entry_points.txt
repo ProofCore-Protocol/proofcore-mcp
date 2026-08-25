@@ -1,0 +1,2 @@
+[console_scripts]
+proofcore-mcp = proofcore_mcp.server:main
