@@ -1,0 +1,10 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "name": "proofcore-mcp",
+  "description": "Zero-auth cryptographic notarization and PoE (Proof-of-Existence) layer on TON Blockchain.",
+  "repository": "https://github.com/ProofCore-Protocol/proofcore-mcp",
+  "homepage": "https://proofcore.org",
+  "license": "MIT",
+  "keywords": ["notary", "ton", "blockchain", "ai", "audit", "security", "zero-auth"],
+  "tools": ["seal_content", "get_proof_status"]
+}
