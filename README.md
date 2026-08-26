@@ -4,6 +4,7 @@
 
 **Zero-Auth Cryptographic Notarization & Evidence Layer on the TON Blockchain for AI Agents.**
 
+[![smithery badge](https://smithery.ai/badge/proofcore-org/notary)](https://smithery.ai/servers/proofcore-org/notary)
 [![PyPI version](https://img.shields.io/pypi/v/proofcore-mcp.svg)](https://pypi.org/project/proofcore-mcp/)
 [![Model Context Protocol](https://img.shields.io/badge/MCP-Ready-00d2ff.svg)](https://modelcontextprotocol.io/)
 [![TON Blockchain](https://img.shields.io/badge/Blockchain-TON-0098EA?logo=ton&logoColor=white)](https://ton.org)
