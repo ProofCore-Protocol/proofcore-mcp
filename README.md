@@ -27,9 +27,13 @@ By using this server, your AI agent can prove mathematically that its output exi
 ## 🛠 Available Tools
 
 1. `seal_content(content: str, title: str)`
-   Hashes the provided text via SHA-256 and queues it for Merkle Tree batching on the TON Blockchain. Returns an immutable citation badge.
+   Hashes the provided text via SHA-256 and queues it for Merkle Tree batching on the TON Blockchain. Returns an immutable citation badge and an Ed25519 signature.
 2. `get_proof_status(deal_id: str)`
    Fetches the cryptographic manifest, Merkle path, and TON transaction hash for a previously sealed deal.
+3. `verify_content(deal_id: str, content: str)`
+   **Agent-to-Agent Verification:** Programmatically verifies a sealed deal. Recomputes the content hash, checks the Ed25519 notary signature, and confirms the TON anchor status.
+4. `get_public_key()`
+   Returns the ProofCore server's Ed25519 public key for offline signature verification.
 
 ## 🚀 Installation & Usage
 
@@ -64,8 +68,9 @@ Just ask your AI:
 * *"Audit this Solidity contract and cryptographically seal the final verdict on-chain."*
 * *"Draft an NDA between Alice and Bob, then notarize it via ProofCore."*
 * *"What is the blockchain status of deal `UUID`?"*
+* **(New) M2M Verification:** *"Here is a report and a deal ID `UUID`. Verify its authenticity and signature using ProofCore."*
 
-The AI will automatically invoke the tool, anchor the document, and provide you with a verification link!
+The AI will automatically invoke the tool, anchor/verify the document, and provide you with a verification link!
 
 ## 🔍 Independent Verification
 
