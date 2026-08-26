@@ -72,11 +72,16 @@ Just ask your AI:
 
 The AI will automatically invoke the tool, anchor/verify the document, and provide you with a verification link!
 
-## 🔍 Independent Verification
+## 🔍 Independent & Autonomous Verification (Zero Vendor Lock-in)
+
+ProofCore is built on the philosophy: *"Don't trust the notary. Verify the proof yourself."*
 
 Every sealed document returns a citation link (e.g., `https://proofcore.org/app/<UUID>`). 
 Anyone can visit this link to independently verify the cryptographic 3-way match:
 `Local SHA-256 Hash == Manifest Merkle Path == TON Blockchain Transaction Payload`
+
+**Furthermore, proofs are 100% autonomous.** 
+Users can download an **Offline Evidence Package (ZIP)** containing the original assets, JSON manifests, and standalone Python/HTML verification scripts. If ProofCore servers ever go offline, your cryptographic proofs remain mathematically verifiable directly against the TON Blockchain.
 
 > *"Don't trust ProofCore. Verify the proof yourself."*
 
