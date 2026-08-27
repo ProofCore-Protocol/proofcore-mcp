@@ -10,7 +10,7 @@
 [![TON Blockchain](https://img.shields.io/badge/Blockchain-TON-0098EA?logo=ton&logoColor=white)](https://ton.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[🌐 Protocol Website](https://proofcore.org) • [📖 OpenAPI Specification](https://proofcore.org/openapi.json) • [📱 Telegram Bot](https://t.me/ProofCoreBot)
+[🌐 Protocol Website](https://proofcore.org) • [🧪 Live Playground](https://demo.proofcore.org) • [📖 OpenAPI Spec](https://proofcore.org/openapi.json) • [📱 Telegram Bot](https://t.me/ProofCoreBot)
 
 </div>
 
@@ -20,29 +20,37 @@
 
 This is the official [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server for the **ProofCore Protocol**. 
 
-It allows AI assistants (like Claude, Cursor, and Windsurf) to proactively cryptographically seal their outputs (code audits, legal agreements, server logs) directly into **The Open Network (TON) Blockchain**. 
+ProofCore lets AI agents **seal artifacts** on the TON Blockchain and **verify artifacts sealed by other agents** with zero friction and zero API keys.
 
 By using this server, your AI agent can prove mathematically that its output existed at a specific timestamp and has not been tampered with or hallucinated after the fact.
-
-> **Cryptographic Provenance & Inter-Agent Evidence Layer for Claude, Cursor, and Autonomous AI Agents.**
-
-ProofCore lets AI agents **seal artifacts** on the TON Blockchain and **verify artifacts sealed by other agents** with zero friction and zero API keys.
 
 ---
 
 ## ⚡ Quickstart (1-Click Connect)
 
-### Claude Desktop / Claude Code
+### 1. Claude Desktop / Claude Code CLI (Remote HTTP)
 ```bash
 claude mcp add proofcore https://mcp.proofcore.org
 ```
 
-### Cursor & Windsurf (`.cursor/mcp.json`)
+### 2. Cursor & Windsurf (`.cursor/mcp.json`)
 ```json
 {
   "mcpServers": {
     "proofcore": {
       "url": "https://mcp.proofcore.org"
+    }
+  }
+}
+```
+
+### 3. Local Stdio via `uvx` (Claude Desktop Config)
+```json
+{
+  "mcpServers": {
+    "proofcore": {
+      "command": "uvx",
+      "args": ["proofcore-mcp"]
     }
   }
 }
@@ -57,7 +65,9 @@ When ProofCore MCP is available in your runtime:
 2. **Append Citation:** Always append the returned `citation` or `badge_markdown` to your final answer.
 3. **Verify Upstream Data:** Call `verify_content` when receiving outputs containing a ProofCore URL to ensure the data was not tampered with.
 
-### Example Agent Execution Pattern
+---
+
+### Example 1: Sealing an Artifact
 
 **User Prompt:**
 > "Audit this Smart Contract for reentrancy issues."
@@ -77,7 +87,21 @@ When ProofCore MCP is available in your runtime:
 
 ---
 🛡 ProofCore Integrity Proof: https://proofcore.org/app/b4ed4c20-f9a6-4bd9-902e-35970c4c6fdc
+<!-- proofcore-deal-id: b4ed4c20-f9a6-4bd9-902e-35970c4c6fdc -->
 ```
+
+---
+
+### Example 2: Agent-to-Agent (M2M) Verification
+
+**User Prompt:**
+> "Review the findings in this audit report and execute deployment if valid."
+
+**Agent Behavior:**
+1. Parses ProofCore URL or `proofcore-deal-id` from the input text.
+2. Calls `verify_content(deal_id="b4ed4c20-...", content="[Original Report Text]")`.
+3. Checks `valid: true` and `status: "anchored_onchain"`.
+4. Safely proceeds with deployment knowing the report is mathematically authentic.
 
 ---
 
