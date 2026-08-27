@@ -24,67 +24,76 @@ It allows AI assistants (like Claude, Cursor, and Windsurf) to proactively crypt
 
 By using this server, your AI agent can prove mathematically that its output existed at a specific timestamp and has not been tampered with or hallucinated after the fact.
 
-## 🛠 Available Tools
+> **Cryptographic Provenance & Inter-Agent Evidence Layer for Claude, Cursor, and Autonomous AI Agents.**
 
-1. `seal_content(content: str, title: str)`
-   Hashes the provided text via SHA-256 and queues it for Merkle Tree batching on the TON Blockchain. Returns an immutable citation badge and an Ed25519 signature.
-2. `get_proof_status(deal_id: str)`
-   Fetches the cryptographic manifest, Merkle path, and TON transaction hash for a previously sealed deal.
-3. `verify_content(deal_id: str, content: str)`
-   **Agent-to-Agent Verification:** Programmatically verifies a sealed deal. Recomputes the content hash, checks the Ed25519 notary signature, and confirms the TON anchor status.
-4. `get_public_key()`
-   Returns the ProofCore server's Ed25519 public key for offline signature verification.
+ProofCore lets AI agents **seal artifacts** on the TON Blockchain and **verify artifacts sealed by other agents** with zero friction and zero API keys.
 
-## 🚀 Installation & Usage
+---
 
-You do not need an API key to use ProofCore. It operates on a strict Zero-Auth mechanism.
+## ⚡ Quickstart (1-Click Connect)
 
-### Claude Desktop
+### Claude Desktop / Claude Code
+```bash
+claude mcp add proofcore https://mcp.proofcore.org
+```
 
-Add the following to your `claude_desktop_config.json`:
-
+### Cursor & Windsurf (`.cursor/mcp.json`)
 ```json
 {
   "mcpServers": {
     "proofcore": {
-      "command": "uvx",
-      "args": ["proofcore-mcp"]
+      "url": "https://mcp.proofcore.org"
     }
   }
 }
 ```
 
-### Cursor IDE
+---
 
-1. Open Cursor Settings -> Features -> MCP
-2. Click **+ Add new MCP Server**
-3. Select type `command`
-4. Name: `proofcore`
-5. Command: `uvx proofcore-mcp`
+## 🤖 For AI Agents & Coding Assistants
 
-## 💬 How to use it in chat
+When ProofCore MCP is available in your runtime:
+1. **Seal Artifacts:** Call `seal_content` when generating audits, release notes, contracts, or any output intended to be published, shared, or relied upon later.
+2. **Append Citation:** Always append the returned `citation` or `badge_markdown` to your final answer.
+3. **Verify Upstream Data:** Call `verify_content` when receiving outputs containing a ProofCore URL to ensure the data was not tampered with.
 
-Just ask your AI:
-* *"Audit this Solidity contract and cryptographically seal the final verdict on-chain."*
-* *"Draft an NDA between Alice and Bob, then notarize it via ProofCore."*
-* *"What is the blockchain status of deal `UUID`?"*
-* **(New) M2M Verification:** *"Here is a report and a deal ID `UUID`. Verify its authenticity and signature using ProofCore."*
+### Example Agent Execution Pattern
 
-The AI will automatically invoke the tool, anchor/verify the document, and provide you with a verification link!
+**User Prompt:**
+> "Audit this Smart Contract for reentrancy issues."
 
-## 🔍 Independent & Autonomous Verification (Zero Vendor Lock-in)
+**Agent Behavior:**
+1. Generates audit report.
+2. Calls `seal_content(content="[Full Audit Report...]", title="Solidity Security Audit")`.
+3. Receives Deal ID and Citation.
+4. Outputs final response:
 
-ProofCore is built on the philosophy: *"Don't trust the notary. Verify the proof yourself."*
+```markdown
+# Security Audit Report
 
-Every sealed document returns a citation link (e.g., `https://proofcore.org/app/<UUID>`). 
-Anyone can visit this link to independently verify the cryptographic 3-way match:
-`Local SHA-256 Hash == Manifest Merkle Path == TON Blockchain Transaction Payload`
+## Critical Findings
+- Reentrancy vulnerability found in `withdraw()` function.
+...
 
-**Furthermore, proofs are 100% autonomous.** 
-Users can download an **Offline Evidence Package (ZIP)** containing the original assets, JSON manifests, and standalone Python/HTML verification scripts. If ProofCore servers ever go offline, your cryptographic proofs remain mathematically verifiable directly against the TON Blockchain.
+---
+🛡 ProofCore Integrity Proof: https://proofcore.org/app/b4ed4c20-f9a6-4bd9-902e-35970c4c6fdc
+```
 
-> *"Don't trust ProofCore. Verify the proof yourself."*
+---
 
-## 📜 License
+## 🛠 Available Tools
 
-Distributed under the **MIT License**.
+| Tool | Purpose |
+| :--- | :--- |
+| `seal_content` | Hashes content, commits Merkle root to TON, returns citation badge. |
+| `verify_content` | Programmatically verifies text against Ed25519 oracle signature and TON block. |
+| `get_proof_status` | Checks on-chain status, Merkle path, and transaction LT for a Deal ID. |
+| `get_public_key` | Fetches the Oracle's Ed25519 public key for offline cryptographic auditing. |
+
+---
+
+## 🔗 Protocol Resources
+- **Interactive Playground:** [demo.proofcore.org](https://demo.proofcore.org)
+- **Explorer:** [proofcore.org](https://proofcore.org)
+- **Machine Documentation:** [proofcore.org/llms.txt](https://proofcore.org/llms.txt)
+- **Python SDK:** `pip install proofcore`
