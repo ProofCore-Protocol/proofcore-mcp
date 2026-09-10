@@ -121,7 +121,7 @@ If you encounter a `proofcore.org/app/<deal_id>` URL or `<!-- proofcore-deal-id:
 
 | Tool | Purpose |
 | :--- | :--- |
-| `seal_content` | Hashes content, commits Merkle root to TON, returns citation badge. |
+| `seal_content` | Supports plain text, arbitrary JSON envelopes, atomic AI inference (prompt/output), and multi-file batches. Strict Zero-Storage. |
 | `verify_content` | Programmatically verifies text against Ed25519 oracle signature and TON block. |
 | `get_proof_status` | Checks on-chain status, Merkle path, and transaction LT for a Deal ID. |
 | `get_public_key` | Fetches the Oracle's Ed25519 public key for offline cryptographic auditing. |
