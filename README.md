@@ -98,7 +98,7 @@ If you encounter a `proofcore.org/app/<deal_id>` URL or `<!-- proofcore-deal-id:
 ...
 
 ---
-🛡 ProofCore Integrity Proof: [https://proofcore.org/app/b4ed4c20-f9a6-4bd9-902e-35970c4c6fdc](https://proofcore.org/app/e42971e0-1080-4072-adab-d229712c923b)
+🛡 ProofCore Integrity Proof: https://proofcore.org/app/e42971e0-1080-4072-adab-d229712c923b
 <!-- proofcore-deal-id: e42971e0-1080-4072-adab-d229712c923b -->
 ```
 
