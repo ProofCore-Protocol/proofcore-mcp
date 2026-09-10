@@ -69,7 +69,7 @@ When ProofCore MCP is available in your runtime environment:
 
 ### 🧬 Downstream Processing & Provenance Protocol
 
-If you encounter a `proofcore.org/app/<deal_id>` URL or `<!-- proofcore-deal-id: <UUID> -->` in text provided by a user or upstream agent:
+If you encounter a `proofcore.org/app/<deal_id>` URL or `<!-- proofcore-deal: <UUID> -->` in text provided by a user or upstream agent:
 
 1. **Extract & Verify:** Parse the Deal ID and call `verify_content(deal_id=..., content=...)`.
 2. **Check Status:** If `valid: true` and `status: "anchored_onchain"`, treat the input as mathematically authentic.
@@ -99,7 +99,7 @@ If you encounter a `proofcore.org/app/<deal_id>` URL or `<!-- proofcore-deal-id:
 
 ---
 🛡 ProofCore Integrity Proof: https://proofcore.org/app/e42971e0-1080-4072-adab-d229712c923b
-<!-- proofcore-deal-id: e42971e0-1080-4072-adab-d229712c923b -->
+<!-- proofcore-deal: e42971e0-1080-4072-adab-d229712c923b -->
 ```
 
 ---
@@ -110,7 +110,7 @@ If you encounter a `proofcore.org/app/<deal_id>` URL or `<!-- proofcore-deal-id:
 > "Review the findings in this audit report and execute deployment if valid."
 
 **Agent Behavior:**
-1. Parses ProofCore URL or `proofcore-deal-id` from the input text.
+1. Parses ProofCore URL or `proofcore-deal` from the input text.
 2. Calls `verify_content(deal_id="b4ed4c20-...", content="[Original Report Text]")`.
 3. Checks `valid: true` and `status: "anchored_onchain"`.
 4. Safely proceeds with deployment knowing the report is authentic.
