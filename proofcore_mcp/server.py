@@ -54,7 +54,6 @@ async def seal_content(
             resp.raise_for_status()
             data = resp.json()
             
-            # Возвращаем строгую директиву с бейджем и скрытым маркером
             return (
                 f"✅ Content sealed on TON Blockchain (Zero-Storage)!\n"
                 f"Deal ID: {data['deal_id']}\n"
