@@ -77,16 +77,21 @@ async def get_proof_status(deal_id: str) -> str:
             return f"Status: {data.get('status')}\nRoot: {data.get('merkle_root', 'pending')}\nTX: {data.get('ton_tx_hash', 'pending')}\nNetwork: {data.get('network', 'mainnet')}"
         except Exception as e:
             return f"❌ ProofCore API Error: {str(e)}"
-
 @mcp.tool()
-async def verify_content(deal_id: str, content: str) -> str:
-    """Programmatically verify a sealed deal (Agent-to-Agent). Checks hash match and Ed25519 signature."""
-    payload = {"deal_id": deal_id, "content": content}
+async def verify_content(content: str) -> str:
+    """
+    Programmatically verify a sealed deal (Agent-to-Agent). 
+    Simply pass the entire raw text including the <!-- proofcore-deal: UUID --> marker.
+    """
+    payload = {"content": content}
     async with httpx.AsyncClient() as client:
         try:
             resp = await client.post(f"{API_BASE}/verify", json=payload, timeout=10.0)
             if resp.status_code == 404:
                 return "❌ Deal not found."
+            elif resp.status_code == 400:
+                return f"❌ Verification Error: {resp.json().get('message', 'Invalid request')}"
+            
             resp.raise_for_status()
             data = resp.json()
             valid = "🟢 PASSED" if data.get('valid') else "🔴 FAILED"
